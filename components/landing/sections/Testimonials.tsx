@@ -47,14 +47,14 @@ export function Testimonials() {
   };
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-slate-50 to-white">
+    <section className="py-20 px-4 bg-linear-to-br from-slate-50 to-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            How FinWallet Helped Others
+            How FinFlow Helped Others
           </h2>
           <p className="text-lg text-muted-foreground">
-            Join thousands of users who've transformed their finances
+            Join thousands of users who`ve transformed their finances
           </p>
         </div>
 
@@ -67,10 +67,22 @@ export function Testimonials() {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-full md:w-96 backdrop-blur-xl bg-white/50 border border-white/50 rounded-2xl shadow-lg shadow-slate-300/10 transition-all duration-300 hover:shadow-xl hover:shadow-primary/25 hover:border-primary/30 hover:bg-gradient-to-br hover:from-white/60 hover:to-primary/10 p-8 snap-center"
+                className="
+                    shrink-0 w-full md:w-96
+                    backdrop-blur-xl bg-primary/10 border border-white/50 rounded-2xl
+                    shadow-lg shadow-slate-300/10 transition-all duration-300
+                    p-8 snap-center
+
+                    bg-linear-to-br from-white/60 to-primary/10
+
+                    hover:shadow-xl hover:shadow-primary/25
+                    hover:border-primary/30
+                    hover:bg-linear-to-br
+                    hover:from-white/60 hover:to-primary/10
+                  "
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 backdrop-blur-md bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-full flex items-center justify-center text-sm font-bold text-foreground">
+                  <div className="w-12 h-12 backdrop-blur-md bg-linear-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-full flex items-center justify-center text-sm font-bold text-foreground">
                     {testimonial.avatar}
                   </div>
                   <div>
@@ -82,18 +94,24 @@ export function Testimonials() {
                     </p>
                   </div>
                 </div>
-                <p className="text-foreground italic">
-                  "{testimonial.content}"
-                </p>
+                <p className="text-foreground italic">{testimonial.content}</p>
               </div>
             ))}
           </div>
 
           {/* Carousel controls */}
-          <div className="flex gap-2 md:gap-4 mt-8 justify-center flex-wrap">
+          <div className="flex gap-10 sm:gap-4 mt-6 sm:mt-8 lg:mt-10 justify-center">
             <button
               onClick={() => scroll("left")}
-              className="backdrop-blur-md bg-white/40 border border-white/50 rounded-full p-3 text-foreground hover:bg-white/60 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300"
+              className="backdrop-blur-md bg-white/60 border border-primary/40
+                         rounded-full p-2.5 sm:p-3 lg:p-3.5
+                         text-foreground
+                         shadow-lg shadow-primary/90
+                         md:bg-white/40 md:border-white/50 md:shadow-none
+                         md:hover:bg-white/60 md:hover:border-primary/40
+                         md:hover:shadow-lg md:hover:shadow-primary/30
+                         transition-all duration-300
+                         active:scale-95"
               aria-label="Scroll left"
             >
               <svg
@@ -103,13 +121,22 @@ export function Testimonials() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
+                className="w-8 h-6 sm:w-5 sm:h-5"
               >
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
             <button
               onClick={() => scroll("right")}
-              className="backdrop-blur-md bg-white/40 border border-white/50 rounded-full p-3 text-foreground hover:bg-white/60 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300"
+              className="backdrop-blur-md bg-white/60 border border-primary/40
+                         rounded-full p-2.5 sm:p-3 lg:p-3.5
+                         text-foreground
+                         shadow-lg shadow-primary/90
+                         md:bg-white/40 md:border-white/50 md:shadow-none
+                         md:hover:bg-white/60 md:hover:border-primary/40
+                         md:hover:shadow-lg md:hover:shadow-primary/30
+                         transition-all duration-300
+                         active:scale-95"
               aria-label="Scroll right"
             >
               <svg
@@ -119,6 +146,7 @@ export function Testimonials() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
+                className="w-8 h-6 sm:w-5 sm:h-5"
               >
                 <polyline points="9 18 15 12 9 6" />
               </svg>

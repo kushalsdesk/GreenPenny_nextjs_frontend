@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { DollarSign, Euro, PoundSterling, IndianRupee } from "lucide-react";
-import { JSX } from "react";
+import { useEffect, useState } from "react";
+import { JSX } from "react/jsx-runtime";
 
 type CornerType = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 
@@ -13,32 +14,51 @@ interface Currency {
 }
 
 export function CurrencyFloats() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const currencies: Currency[] = [
     {
       id: 1,
-      icon: <DollarSign className="text-primary w-6 h-6" />,
+      icon: (
+        <DollarSign className="text-white font-semibold w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+      ),
       corner: "topLeft",
     },
     {
       id: 2,
-      icon: <Euro className="text-primary w-6 h-6" />,
+      icon: <Euro className="text-white w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />,
       corner: "topRight",
     },
     {
       id: 3,
-      icon: <PoundSterling className="text-primary w-6 h-6" />,
+      icon: (
+        <PoundSterling className="text-white w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+      ),
       corner: "bottomLeft",
     },
     {
       id: 4,
-      icon: <IndianRupee className="text-primary w-6 h-6" />,
+      icon: (
+        <IndianRupee className="text-white w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+      ),
       corner: "bottomRight",
     },
   ];
 
   const getPosition = (corner: CornerType) => {
-    const distanceX = 250;
-    const distanceY = 100;
+    // Responsive distances based on screen size
+    const distanceX = isMobile ? 150 : 250;
+    const distanceY = isMobile ? 80 : 100;
 
     const positions = {
       topLeft: { x: -distanceX, y: -distanceY },
@@ -51,15 +71,15 @@ export function CurrencyFloats() {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full h-0">
+    <div className="relative flex items-center justify-center w-full h-0 overflow-visible">
       {currencies.map((currency, index) => {
         const position = getPosition(currency.corner);
 
         return (
           <motion.div
             key={currency.id}
-            className="absolute flex items-center justify-center w-14 h-14 rounded-xl
-                       bg-white/50 backdrop-blur-md border border-white/40 shadow-md"
+            className="absolute flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg sm:rounded-xl
+                       bg-primary/40 backdrop-blur-md border border-primary/40 shadow-green-900/30 shadow-md"
             initial={{
               x: 0,
               y: 0,
@@ -69,7 +89,7 @@ export function CurrencyFloats() {
             animate={{
               x: position.x,
               y: position.y,
-              opacity: 0.95,
+              opacity: isMobile ? 0.65 : 0.8,
               scale: 1,
             }}
             transition={{

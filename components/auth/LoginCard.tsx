@@ -128,7 +128,7 @@ export function LoginCard({ onLoginSuccess }: LoginCardProps) {
             </button>
 
             <p className="text-center text-sm text-muted-foreground mt-4">
-              Don't have an account?{" "}
+              Do not have an account?{" "}
               <button className="text-primary hover:underline font-medium">
                 Sign up
               </button>
