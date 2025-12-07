@@ -28,7 +28,7 @@ export function LoginCard({ onLoginSuccess }: LoginCardProps) {
         <div className="backdrop-blur-2xl bg-white/50 border border-white/60 rounded-3xl p-8 shadow-lg shadow-green-500/5">
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-3">
-              <div className="relative w-150 h-fit backdrop-blur-md bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg flex items-center justify-center overflow-hidden">
+              <div className="relative w-150 h-fit backdrop-blur-md bg-linear-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg flex items-center justify-center overflow-hidden">
                 <Image
                   src="/assets/logo.png"
                   alt="FinFlow Logo"
@@ -110,7 +110,7 @@ export function LoginCard({ onLoginSuccess }: LoginCardProps) {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-6 relative overflow-hidden backdrop-blur-md bg-gradient-to-br from-white/50 to-primary/5 border border-primary/30 rounded-xl py-3 px-6 font-medium text-primary hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full mt-6 relative overflow-hidden backdrop-blur-md bg-linear-to-br from-white/50 to-primary/5 border border-primary/30 rounded-xl py-3 px-6 font-medium text-primary hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="relative flex flexflex-row justify-between items-center">
                 <Image
@@ -124,7 +124,7 @@ export function LoginCard({ onLoginSuccess }: LoginCardProps) {
                 />
                 {isLoading ? "Signing in..." : "Sign In"}
               </span>
-              <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-gradient-to-b from-primary to-transparent rounded-br-xl opacity-1" />
+              <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-linear-to-b from-primary to-transparent rounded-br-xl opacity-1" />
             </button>
 
             <p className="text-center text-sm text-muted-foreground mt-4">

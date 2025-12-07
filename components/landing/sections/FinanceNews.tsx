@@ -87,7 +87,7 @@ export const FinanceNews = forwardRef<HTMLDivElement>(
                 </div>
 
                 <h3
-                  className="text-lg font-semibold text-foreground mb-3
+                  className="text-lg font-semibold  mb-3
                     group-hover:text-primary transition-colors
                     text-primary   /* default mobile behavior */
                   "

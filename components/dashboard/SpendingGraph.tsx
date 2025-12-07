@@ -10,7 +10,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-/* Updated spending graph to use Recharts area chart with glassmorphic styling */
 const data = [
   { month: "Jan", spending: 2400, income: 4200 },
   { month: "Feb", spending: 2210, income: 4100 },
@@ -22,19 +21,28 @@ const data = [
 
 export function SpendingGraph() {
   return (
-    <div className="glass-card-glow p-6 animate-in fade-in duration-500">
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-foreground mb-1">
+    <div className="glass-card-glow p-4 sm:p-6">
+      {/* Header */}
+      <div className="mb-4 sm:mb-6">
+        <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
           Spending vs Income
         </h2>
-        <p className="text-sm text-muted-foreground">Last 6 months overview</p>
+        <p className="text-xs sm:text-sm text-muted-foreground">
+          Last 6 months overview
+        </p>
       </div>
 
-      <div className="w-full h-96">
+      {/* Chart */}
+      <div className="w-full h-64 sm:h-80 lg:h-96">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            margin={{
+              top: 10,
+              right: 10,
+              left: -10,
+              bottom: 0,
+            }}
           >
             <defs>
               <linearGradient id="spendingGradient" x1="0" y1="0" x2="0" y2="1">
@@ -62,9 +70,23 @@ export function SpendingGraph() {
                 />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="white/10" />
-            <XAxis dataKey="month" stroke="currentColor" opacity={0.6} />
-            <YAxis stroke="currentColor" opacity={0.6} />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="rgba(255,255,255,0.1)"
+            />
+            <XAxis
+              dataKey="month"
+              stroke="currentColor"
+              opacity={0.6}
+              tick={{ fontSize: 12 }}
+              tickLine={false}
+            />
+            <YAxis
+              stroke="currentColor"
+              opacity={0.6}
+              tick={{ fontSize: 12 }}
+              tickLine={false}
+            />
             <Tooltip
               contentStyle={{
                 background: "rgba(255, 255, 255, 0.3)",
@@ -72,6 +94,7 @@ export function SpendingGraph() {
                 border: "1px solid rgba(255, 255, 255, 0.4)",
                 borderRadius: "12px",
                 color: "currentColor",
+                fontSize: "14px",
               }}
               cursor={{ stroke: "currentColor", opacity: 0.3 }}
             />
@@ -95,14 +118,19 @@ export function SpendingGraph() {
         </ResponsiveContainer>
       </div>
 
-      <div className="flex gap-4 mt-6 justify-center">
+      {/* Legend */}
+      <div className="flex flex-wrap gap-3 sm:gap-4 mt-4 sm:mt-6 justify-center">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-red-400 rounded" />
-          <span className="text-sm text-muted-foreground">Spending</span>
+          <span className="text-xs sm:text-sm text-muted-foreground">
+            Spending
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-green-500 rounded" />
-          <span className="text-sm text-muted-foreground">Income</span>
+          <span className="text-xs sm:text-sm text-muted-foreground">
+            Income
+          </span>
         </div>
       </div>
     </div>
