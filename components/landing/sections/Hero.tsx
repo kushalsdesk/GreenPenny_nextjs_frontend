@@ -1,12 +1,14 @@
 "use client";
 
+import { motion } from "framer-motion";
+import Image from "next/image";
 import { CurrencyFloats } from "../CurrencyFloats";
 
 export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-32 bg-linear-to-br from-green-50 via-white to-slate-50">
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-32 bg-gradient-to-br from-green-50 via-white to-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           {/* Welcome Badge */}
           <div className="mb-6 sm:mb-8 inline-block">
             <div className="backdrop-blur-md bg-white/30 border border-white/40 rounded-full px-4 sm:px-6 py-2 sm:py-2.5">
@@ -38,7 +40,7 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
           <div className="space-y-8 sm:space-y-12 lg:space-y-16">
             {/* Dashboard Preview Card */}
             <div className="backdrop-blur-xl bg-white/40 border border-white/50 rounded-2xl sm:rounded-3xl transition-all duration-300 shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 p-6 sm:p-8 lg:p-10 max-w-2xl mx-auto">
-              <div className="h-48 sm:h-56 lg:h-64 bg-linear-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
+              <div className="h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
                 <svg
                   className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 text-primary/30"
                   fill="none"
@@ -60,7 +62,7 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
 
             {/* Analytics Preview Card */}
             <div className="backdrop-blur-xl bg-white/40 border border-white/50 rounded-2xl sm:rounded-3xl transition-all duration-300 shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 p-6 sm:p-8 lg:p-10 max-w-2xl mx-auto">
-              <div className="h-48 sm:h-56 lg:h-64 bg-linear-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
+              <div className="h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
                 <svg
                   className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 text-primary/30"
                   fill="none"
@@ -82,6 +84,51 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
           </div>
         </div>
       </div>
+
+      {/* Floating Debit Card - Right Side Background */}
+      <motion.div
+        className="hidden lg:block absolute right-0 top-1/4 translate-y-1/3 pointer-events-none "
+        initial={{
+          x: 200,
+          opacity: 0,
+          rotate: 0,
+        }}
+        animate={{
+          x: 0,
+          opacity: 1,
+          rotate: 10,
+        }}
+        transition={{
+          duration: 1.5,
+          delay: 0.3,
+          type: "spring",
+          stiffness: 60,
+          damping: 15,
+        }}
+      >
+        <motion.div
+          animate={{
+            y: [0, -20, 0],
+            rotate: [15, 18, 15],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="relative w-[400px] xl:w-[500px]"
+        >
+          <Image
+            src="/assets/debit_card.png"
+            alt="Debit Card"
+            width={500}
+            height={315}
+            className="w-full h-auto drop-shadow-2xl"
+            quality={75}
+            priority
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
