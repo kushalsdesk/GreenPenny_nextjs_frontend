@@ -4,7 +4,7 @@ import { CurrencyFloats } from "../CurrencyFloats";
 
 export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-32 bg-gradient-to-br from-green-50 via-white to-slate-50">
+    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-32 bg-linear-to-br from-green-50 via-white to-slate-50">
       <div className="max-w-7xl mx-auto w-full">
         <div className="max-w-4xl mx-auto text-center">
           {/* Welcome Badge */}
@@ -19,7 +19,7 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
           {/* Main Heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground mb-6 sm:mb-8 text-balance leading-tight px-2">
             Take Control of Your{" "}
-            <span className="text-primary">Financial Life</span>
+            <span className="text-primary">Financial Flow</span>
           </h1>
 
           {/* Currency Floats Animation */}
@@ -29,8 +29,8 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
 
           {/* Description */}
           <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-12 sm:mb-16 lg:mb-20 max-w-2xl mx-auto text-balance leading-relaxed px-4">
-            Modern financial management should not be complex. FinFlowww gives
-            you clarity on your spending, growth, and financial goals with a
+            Modern financial management should not be complex. FinFlow gives you
+            clarity on your spending, growth, and financial goals with a
             beautiful, intuitive interface.
           </p>
 
@@ -38,7 +38,7 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
           <div className="space-y-8 sm:space-y-12 lg:space-y-16">
             {/* Dashboard Preview Card */}
             <div className="backdrop-blur-xl bg-white/40 border border-white/50 rounded-2xl sm:rounded-3xl transition-all duration-300 shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 p-6 sm:p-8 lg:p-10 max-w-2xl mx-auto">
-              <div className="h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
+              <div className="h-48 sm:h-56 lg:h-64 bg-linear-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
                 <svg
                   className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 text-primary/30"
                   fill="none"
@@ -60,7 +60,7 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
 
             {/* Analytics Preview Card */}
             <div className="backdrop-blur-xl bg-white/40 border border-white/50 rounded-2xl sm:rounded-3xl transition-all duration-300 shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 p-6 sm:p-8 lg:p-10 max-w-2xl mx-auto">
-              <div className="h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
+              <div className="h-48 sm:h-56 lg:h-64 bg-linear-to-br from-primary/10 to-primary/5 rounded-xl sm:rounded-2xl flex items-center justify-center">
                 <svg
                   className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 text-primary/30"
                   fill="none"

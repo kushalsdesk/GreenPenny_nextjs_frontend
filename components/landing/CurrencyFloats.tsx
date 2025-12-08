@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { DollarSign, Euro, PoundSterling, IndianRupee } from "lucide-react";
-import { useEffect, useState } from "react";
-import { JSX } from "react/jsx-runtime";
+import { JSX, useEffect, useState } from "react";
 
 type CornerType = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 
@@ -56,15 +55,14 @@ export function CurrencyFloats() {
   ];
 
   const getPosition = (corner: CornerType) => {
-    // Responsive distances based on screen size
-    const distanceX = isMobile ? 150 : 250;
-    const distanceY = isMobile ? 80 : 100;
+    const shortDistance = isMobile ? 80 : 150;
+    const longDistance = isMobile ? 160 : 280;
 
     const positions = {
-      topLeft: { x: -distanceX, y: -distanceY },
-      topRight: { x: distanceX, y: -distanceY },
-      bottomLeft: { x: -distanceX, y: distanceY },
-      bottomRight: { x: distanceX, y: distanceY },
+      topLeft: { x: -shortDistance, y: 0 },
+      topRight: { x: shortDistance, y: 0 },
+      bottomLeft: { x: -longDistance, y: 0 },
+      bottomRight: { x: longDistance, y: 0 },
     };
 
     return positions[corner];
@@ -79,7 +77,7 @@ export function CurrencyFloats() {
           <motion.div
             key={currency.id}
             className="absolute flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg sm:rounded-xl
-                       bg-primary/40 backdrop-blur-md border border-primary/40 shadow-green-900/30 shadow-md"
+                       bg-primary/70 backdrop-blur-md border border-primary/40 shadow-green-900/30 shadow-md"
             initial={{
               x: 0,
               y: 0,
@@ -88,7 +86,7 @@ export function CurrencyFloats() {
             }}
             animate={{
               x: position.x,
-              y: position.y,
+              y: 0,
               opacity: isMobile ? 0.65 : 0.8,
               scale: 1,
             }}

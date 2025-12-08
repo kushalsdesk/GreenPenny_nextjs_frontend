@@ -39,7 +39,6 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                 quality={75}
               />
             </div>
-            <span className="text-xl font-bold text-foreground">Finflowww</span>
           </div>
 
           {/* Navigation Menu */}
