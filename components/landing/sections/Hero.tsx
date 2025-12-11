@@ -21,7 +21,7 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
           {/* Main Heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground mb-6 sm:mb-8 text-balance leading-tight px-2">
             Take Control of Your{" "}
-            <span className="text-primary">Financial Flow</span>
+            <span className="text-green-900">Financial Flow</span>
           </h1>
 
           {/* Currency Floats Animation */}
@@ -121,9 +121,9 @@ export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
           <Image
             src="/assets/card_view.png"
             alt="Debit Card"
-            width={500}
-            height={315}
-            className="w-full h-auto"
+            width={1000}
+            height={630}
+            className="w-full h-auto drop-shadow-2xl"
             priority
             unoptimized
             quality={100}

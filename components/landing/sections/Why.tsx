@@ -42,7 +42,7 @@ export function WhyFinanceMatters() {
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <header className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground text-balance leading-tight">
+          <h2 className="text-3xl md:text-5xl font-bold text-green-900 text-balance leading-tight">
             Why Financial Management Matters
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -104,7 +104,7 @@ function ReasonCard({ reason, priority = false }: ReasonCardProps) {
         {/* Text Content */}
         <div className="transition-all duration-700">
           {/* Title - Always primary color on mobile, transitions on desktop hover */}
-          <h3 className="text-xl font-semibold text-primary mb-3 transition-colors duration-500 relative md:text-foreground md:group-hover:text-primary">
+          <h3 className="text-xl font-semibold text-green-900 mb-3 transition-colors duration-500 relative md:text-foreground md:group-hover:text-primary">
             {reason.title}
           </h3>
 

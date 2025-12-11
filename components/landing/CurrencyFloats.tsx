@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { DollarSign, Euro, PoundSterling, IndianRupee } from "lucide-react";
+import { DollarSign, Euro, IndianRupee, JapaneseYen } from "lucide-react";
 import { JSX, useEffect, useState } from "react";
 
 type CornerType = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
@@ -41,7 +41,7 @@ export function CurrencyFloats() {
     {
       id: 3,
       icon: (
-        <PoundSterling className="text-white w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+        <JapaneseYen className="text-white w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
       ),
       corner: "bottomLeft",
     },
@@ -77,7 +77,7 @@ export function CurrencyFloats() {
           <motion.div
             key={currency.id}
             className="absolute flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg sm:rounded-xl
-                       bg-primary/70 backdrop-blur-md border border-primary/40 shadow-green-900/30 shadow-md"
+                       bg-linear-to-br to-green-900 from-primary/40 backdrop-blur-md border border-primary/40 shadow-green-900/30 shadow-md"
             initial={{
               x: 0,
               y: 0,

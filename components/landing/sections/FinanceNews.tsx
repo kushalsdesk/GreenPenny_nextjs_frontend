@@ -51,7 +51,7 @@ export const FinanceNews = forwardRef<HTMLDivElement>(
       <section ref={ref} className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-green-900 mb-4">
               Finance News & Insights
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -89,7 +89,7 @@ export const FinanceNews = forwardRef<HTMLDivElement>(
                 <h3
                   className="text-lg font-semibold  mb-3
                     group-hover:text-primary transition-colors
-                    text-primary   /* default mobile behavior */
+                    text-green-900   /* default mobile behavior */
                   "
                 >
                   {article.title}
@@ -130,7 +130,17 @@ export const FinanceNews = forwardRef<HTMLDivElement>(
                     onClick={() => setSelectedArticle(null)}
                     className="text-muted-foreground hover:text-foreground transition-colors text-2xl"
                   >
-                    Ã—
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
                   </button>
                 </div>
 
