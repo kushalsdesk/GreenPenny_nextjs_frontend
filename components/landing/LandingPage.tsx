@@ -10,30 +10,15 @@ import { LandingNavbar } from "./LandingNavbar";
 
 interface LandingPageProps {
   onGetStarted: () => void;
-  isLoggedIn: boolean;
-  onSignIn: () => void;
-  onDashboard: () => void;
-  onLogout: () => void;
 }
 
-export function LandingPage({
-  onGetStarted,
-  isLoggedIn,
-  onSignIn,
-  onDashboard,
-  onLogout,
-}: LandingPageProps) {
+export function LandingPage({ onGetStarted }: LandingPageProps) {
   const newsRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="w-full min-h-screen overflow-x-hidden">
       {/* Navbar - Fixed with proper z-index */}
-      <LandingNavbar
-        isLoggedIn={isLoggedIn}
-        onSignIn={onSignIn}
-        onDashboard={onDashboard}
-        onLogout={onLogout}
-      />
+      <LandingNavbar />
 
       {/* Main Content - Proper spacing for fixed navbar */}
       <main className="w-full pt-16 sm:pt-20">
