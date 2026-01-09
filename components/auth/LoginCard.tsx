@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import type React from "react";
 import { useState, useEffect } from "react";
@@ -45,7 +46,7 @@ export function LoginCard() {
         setPassword("");
       } else {
         await login(email, password);
-        // If successful, AppContainer will handle navigation to Dashboard
+        // If true, AppContainer will handle navigation to Dashboard
       }
     } catch (err) {
       // Error is already set in store
@@ -77,8 +78,10 @@ export function LoginCard() {
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4">
+      {/* Floating Debit Card - Responsive Positioning */}
+      <FloatingCard />
       <div className="w-full max-w-md animate-in fade-in duration-500">
-        <div className="backdrop-blur-2xl bg-white/50 border border-white/60 rounded-3xl p-8 shadow-lg shadow-green-500/5">
+        <div className="backdrop-blur-2xl bg-white/50 border border-white/60 rounded-3xl p-8 shadow-md drop-shadow-2xl shadow-primary">
           {/* Back button */}
           <button
             onClick={handleBackToLanding}
@@ -211,7 +214,7 @@ export function LoginCard() {
             <button
               type="submit"
               disabled={isFormLoading}
-              className="w-full mt-6 relative overflow-hidden backdrop-blur-md bg-gradient-to-br from-white/50 to-primary/5 border border-primary/30 rounded-xl py-3 px-6 font-medium text-primary hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full mt-6 relative overflow-hidden backdrop-blur-md bg-linear-to-br from-white/50 to-primary/5 border border-primary/30 rounded-xl py-3 px-6 font-medium text-primary hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="relative flex flex-row justify-between items-center">
                 <Image
@@ -251,9 +254,9 @@ export function LoginCard() {
               type="button"
               onClick={handleGoogleLogin}
               disabled={isFormLoading}
-              className="w-full backdrop-blur-md bg-white/40 border border-white/40 hover:bg-white/50 hover:border-white/60 rounded-xl py-3 px-6 font-medium text-foreground transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+              className="max-w-fit mx-auto mt-6 relative flex flex-row justify-center items-center overflow-hidden backdrop-blur-md bg-gradient-to-br from-white/50 to-primary/5 border border-primary/30 rounded-xl py-3 px-6 font-medium text-primary hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 mr-4" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -293,3 +296,52 @@ export function LoginCard() {
     </div>
   );
 }
+
+const FloatingCard = () => {
+  return (
+    <motion.div
+      className="absolute -right-1/12 top-12 md:top-20 md:-right-20 lg:right-0 lg:top-1/4 lg:translate-y-1/3 pointer-events-none z-0"
+      initial={{
+        x: 200,
+        opacity: 0,
+        rotate: 10,
+      }}
+      animate={{
+        x: 0,
+        opacity: 1,
+        rotate: -15,
+      }}
+      transition={{
+        duration: 1.5,
+        delay: 0.3,
+        type: "spring",
+        stiffness: 60,
+        damping: 15,
+      }}
+    >
+      <motion.div
+        animate={{
+          y: [0, -20, 0],
+          rotate: [15, 18, 15],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="relative w-48 sm:w-80 lg:w-[400px] xl:w-[500px]"
+      >
+        <Image
+          src="/assets/card_view.png"
+          alt="Debit Card"
+          width={1000}
+          height={630}
+          className="w-full h-auto drop-shadow-2xl"
+          priority
+          unoptimized
+          quality={100}
+        />
+      </motion.div>
+    </motion.div>
+  );
+};

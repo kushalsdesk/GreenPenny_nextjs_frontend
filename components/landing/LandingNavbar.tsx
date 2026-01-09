@@ -122,7 +122,7 @@ export function LandingNavbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 backdrop-blur-sm bg-white/50 border-t border-white/60 md:hidden rounded-b-3xl shadow-lg">
+          <div className="absolute top-full left-0 right-0 z-40 backdrop-blur-2xl bg-linear-to-br from-green-900/50 to-primary/30 border-white/50 shadow-xl shadow-black/5 border-t md:hidden rounded-b-3xl ">
             <div className="flex flex-col gap-2 p-4">
               {isAuthenticated ? (
                 // Show "Go to Dashboard" in mobile menu when logged in
@@ -155,25 +155,25 @@ export function LandingNavbar() {
                 // Show "Sign In" in mobile menu when not logged in
                 <button
                   onClick={handleSignInClick}
-                  className="relative overflow-hidden backdrop-blur-sm bg-linear-to-br from-green-950/60 to-primary/20 border border-primary/30 rounded-xl py-3 px-4 text-primary/90 font-bold hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 w-full"
+                  className="relative overflow-hidden  backdrop-blur-lg bg-linear-to-br from-green-950/60 to-primary/20 border border-primary/30 rounded-xl py-3 px-4 text-primary/90 font-bold hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 w-full"
                 >
                   <span className="relative flex flex-row justify-between items-center text-white text-xl">
                     <Image
                       src="/assets/signin.png"
-                      alt="Sign In"
+                      alt="Get In"
                       width={50}
                       height={50}
                       className="object-contain"
                       priority
                       quality={75}
                     />
-                    Sign In
+                    Get In
                   </span>
                 </button>
               )}
 
               {/* News Button (kept from original) */}
-              <button className="relative overflow-hidden backdrop-blur-md bg-gradient-to-br from-green-950/60 to-primary/20 border border-primary/30 rounded-xl py-3 px-4 text-primary/90 font-bold hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 w-full">
+              <button className="relative overflow-hidden backdrop-blur-lg bg-linear-to-br from-green-950/60 to-primary/20 border border-primary/30 rounded-xl py-3 px-4 text-primary/90 font-bold hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 w-full">
                 <span className="relative flex flex-row justify-between items-center text-white text-xl">
                   <Image
                     src="/assets/sidebar.png"

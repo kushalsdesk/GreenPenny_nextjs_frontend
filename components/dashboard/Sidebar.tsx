@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuthStore } from "@/stores/authStore";
 import Image from "next/image";
 
 interface SidebarProps {
@@ -21,6 +22,18 @@ const menuItems: MenuItem[] = [
 ];
 
 export function Sidebar({ isOpen, onToggle }: SidebarProps) {
+  const { logout, clearError } = useAuthStore();
+
+  const handleLogout = async (): Promise<void> => {
+    try {
+      await logout();
+      // if true logout, AppContainer will detect isAuthenticated=false
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Optional: Show error toast/alert
+      alert("Failed to logout. Please try again.");
+    }
+  };
   return (
     <>
       {/* Desktop Sidebar - Always visible on md+ */}
@@ -89,7 +102,10 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
           </nav>
 
           {/* Logout Button */}
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-destructive hover:bg-red-50/30 transition-all duration-300 font-medium border border-red-200/30 hover:border-red-200/50 hover:shadow-sm">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-destructive hover:bg-red-50/30 transition-all duration-300 font-medium border border-red-200/30 hover:border-red-200/50 hover:shadow-sm"
+          >
             <svg
               width="20"
               height="20"
@@ -180,7 +196,10 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
           </nav>
 
           {/* Logout Button */}
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white/30 shadow-sm text-destructive hover:bg-red-50/30 transition-all duration-300 font-medium border border-red-200/30 hover:border-red-200/50 hover:shadow-sm">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white/30 shadow-sm text-destructive hover:bg-red-50/30 transition-all duration-300 font-medium border border-red-200/30 hover:border-red-200/50 hover:shadow-sm"
+          >
             <svg
               width="20"
               height="20"
