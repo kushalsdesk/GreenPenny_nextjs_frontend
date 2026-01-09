@@ -9,7 +9,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
             <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">
-              FinFlow
+              GreenPenny
             </h3>
             <p className="text-background/70 text-sm sm:text-base leading-relaxed max-w-xs">
               Making financial management beautiful and accessible for everyone.
@@ -120,7 +120,7 @@ export function Footer() {
         <div className="border-t border-background/20 pt-6 sm:pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm sm:text-base text-background/70 text-center sm:text-left">
-              © 2025 FinFlow. All rights reserved.
+              © 2025 GreenPenny. All rights reserved.
             </p>
 
             {/* Social Links (Optional - Add if needed) */}

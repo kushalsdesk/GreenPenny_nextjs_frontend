@@ -51,7 +51,7 @@ export function Testimonials() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-green-900 mb-4">
-            How FinFlow Helped Others
+            How GreenPenny Helped Others
           </h2>
           <p className="text-lg text-muted-foreground">
             Join thousands of users who`ve transformed their finances

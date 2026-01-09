@@ -105,7 +105,7 @@ export function LoginCard() {
               <div className="relative w-150 h-fit backdrop-blur-md bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg flex items-center justify-center overflow-hidden">
                 <Image
                   src="/assets/logo.png"
-                  alt="FinFlow Logo"
+                  alt="GreenPenny Logo"
                   width={150}
                   height={150}
                   className="object-contain"

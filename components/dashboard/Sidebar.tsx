@@ -44,7 +44,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
             <div className="relative w-12 h-12 backdrop-blur-md bg-linear-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg flex items-center justify-center overflow-hidden">
               <Image
                 src="/assets/logo.png"
-                alt="FinFlow Logo"
+                alt="GreenPenny Logo"
                 width={50}
                 height={50}
                 className="object-contain"
@@ -138,7 +138,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
               <div className="relative w-12 h-12 backdrop-blur-md bg-linear-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg flex items-center justify-center overflow-hidden">
                 <Image
                   src="/assets/logo.png"
-                  alt="FinFlow Logo"
+                  alt="GreenPenny Logo"
                   width={48}
                   height={48}
                   className="object-contain"
