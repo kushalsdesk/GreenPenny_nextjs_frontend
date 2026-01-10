@@ -107,7 +107,7 @@ export function LoginCard() {
                   src="/assets/logo.png"
                   alt="GreenPenny Logo"
                   width={150}
-                  height={150}
+                  height={200}
                   className="object-contain"
                   priority
                   quality={75}
@@ -218,7 +218,9 @@ export function LoginCard() {
             >
               <span className="relative flex flex-row justify-between items-center">
                 <Image
-                  src="/assets/signin.png"
+                  src={
+                    isSignupMode ? "/assets/signup.png" : "/assets/signin.png"
+                  }
                   alt="Sign In Icon"
                   width={50}
                   height={50}
@@ -278,7 +280,7 @@ export function LoginCard() {
             </button>
 
             {/* Toggle between login/signup */}
-            <p className="text-center text-sm text-muted-foreground mt-4">
+            <p className="text-center text-lg text-muted-foreground mt-4">
               {isSignupMode
                 ? "Already have an account?"
                 : "Don't have an account?"}{" "}

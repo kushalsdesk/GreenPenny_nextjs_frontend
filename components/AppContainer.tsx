@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Dashboard } from "./dashboard/Dashboard";
 import { LoginCard } from "./auth/LoginCard";
 import { LandingPage } from "./landing/LandingPage";
+import Image from "next/image";
 
 const AppContainer = () => {
   const {
@@ -15,6 +16,7 @@ const AppContainer = () => {
     checkSession,
     error: authError,
   } = useAuthStore();
+
   interface OAuthStatus {
     type: "success" | "failed" | null;
     message?: string;
@@ -41,7 +43,6 @@ const AppContainer = () => {
           ? decodeURIComponent(errMsg)
           : "OAuth authentication failed",
       });
-
       window.history.replaceState({}, "", window.location.pathname);
       setInitialCheckDone(true);
     } else {
@@ -60,9 +61,19 @@ const AppContainer = () => {
 
   if (!initialCheckDone || isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-50 via-white to-slate-50">
+      <div className="loading-container">
         <div className="text-center space-y-4">
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+          <div className="logo-spinner-container">
+            <Image
+              src="/assets/logo.png"
+              alt="GreenPenny Logo"
+              width={86}
+              height={86}
+              className="logo-spinner object-contain"
+              priority
+              quality={90}
+            />
+          </div>
           <p className="text-muted-foreground text-lg">Loading GreenPenny...</p>
         </div>
       </div>

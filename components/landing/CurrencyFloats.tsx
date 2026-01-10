@@ -76,8 +76,7 @@ export function CurrencyFloats() {
         return (
           <motion.div
             key={currency.id}
-            className="absolute flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg sm:rounded-xl
-                       bg-linear-to-br to-green-900 from-primary/40 backdrop-blur-md border border-primary/40 shadow-green-900/30 shadow-md"
+            className="currency-float-card absolute flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14"
             initial={{
               x: 0,
               y: 0,

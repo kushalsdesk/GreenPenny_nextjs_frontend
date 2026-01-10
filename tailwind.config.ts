@@ -8,6 +8,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+        mono: ["var(--font-mono)"],
+      },
+      colors: {
+        green: {
+          50: "oklch(0.97 0.01 142)",
+        },
+        slate: {
+          50: "oklch(0.98 0.005 240)",
+        },
+      },
       keyframes: {
         floatCurrency: {
           "0%, 100%": { transform: "translate(0, 0) rotate(0deg)" },

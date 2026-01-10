@@ -17,24 +17,12 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
 
   return (
     <div className="w-full min-h-screen overflow-x-hidden">
-      {/* Navbar - Fixed with proper z-index */}
       <LandingNavbar />
-
-      {/* Main Content - Proper spacing for fixed navbar */}
-      <main className="w-full pt-16 sm:pt-20">
-        {/* Hero Section */}
+      <main className="w-full pt-16 ">
         <Hero onGetStarted={onGetStarted} />
-
-        {/* Why Finance Matters Section */}
         <WhyFinanceMatters />
-
-        {/* Testimonials Section */}
         <Testimonials />
-
-        {/* Finance News Section */}
         <FinanceNews ref={newsRef} />
-
-        {/* Footer Section */}
         <Footer />
       </main>
     </div>
