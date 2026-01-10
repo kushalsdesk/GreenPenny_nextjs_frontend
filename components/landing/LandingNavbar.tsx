@@ -122,7 +122,7 @@ export function LandingNavbar() {
         {isOpen && (
           <div className="mobile-menu absolute top-full left-0 right-0 z-40 md:hidden rounded-b-3xl">
             <div className="flex flex-col gap-2 p-4">
-              {true ? (
+              {isAuthenticated ? (
                 // Show "Go to Dashboard" in mobile menu when logged in
                 <button
                   onClick={() => {
