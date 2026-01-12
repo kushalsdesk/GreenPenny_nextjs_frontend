@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { JetBrains_Mono, SUSE } from "next/font/google";
 import "./globals.css";
+import { ToastProvider } from "@/components/auth/ToastProvider";
 
 const suse = SUSE({
   weight: "600",
@@ -35,7 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${suse.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-sans antialiased bg-app-gradient">{children}</body>
+      <body className="font-sans antialiased bg-app-gradient">
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   );
 }

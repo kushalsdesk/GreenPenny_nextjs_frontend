@@ -118,8 +118,17 @@ export function LandingNavbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="mobile-menu backdrop-blur-md bg-white/40 absolute top-full left-0 right-0 z-40 md:hidden rounded-b-3xl">
-            <div className="flex flex-col gap-2 p-4">
+          <div
+            className="
+              absolute top-full left-0 right-0 z-40 md:hidden
+              rounded-b-3xl
+              bg-white/40
+              before:content-['']
+              before:absolute before:inset-0 before:-z-10
+              before:backdrop-blur-xl
+            "
+          >
+            <div className="flex flex-col gap-2 p-4 z-10">
               {isAuthenticated ? (
                 // Show "Go to Dashboard" in mobile menu when logged in
                 <button

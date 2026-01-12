@@ -59,14 +59,18 @@ export const useAuthStore = create<AuthState>()(
           });
 
           if (error) {
+            set({ isLoading: false, error: error.message });
             throw new Error(error.message);
           }
 
           if (data.user) {
             if (data.user.identities && data.user.identities.length === 0) {
-              throw new Error("Email already registered. Please sign in.");
+              const errorMsg = "Email already registered. Please sign in.";
+              set({ isLoading: false, error: errorMsg });
+              throw new Error(errorMsg);
             }
 
+            // Signup successful
             set({
               isLoading: false,
               error: null,
@@ -92,6 +96,7 @@ export const useAuthStore = create<AuthState>()(
           });
 
           if (error) {
+            set({ isLoading: false, error: error.message });
             throw new Error(error.message);
           }
 
@@ -133,6 +138,7 @@ export const useAuthStore = create<AuthState>()(
           });
 
           if (error) {
+            set({ isLoading: false, error: error.message });
             throw new Error(error.message);
           }
 
@@ -202,6 +208,7 @@ export const useAuthStore = create<AuthState>()(
           const { error } = await supabase.auth.signOut();
 
           if (error) {
+            set({ isLoading: false, error: error.message });
             throw new Error(error.message);
           }
 
@@ -221,7 +228,7 @@ export const useAuthStore = create<AuthState>()(
       },
     }),
     {
-      name: "green-plant-storage",
+      name: "green-penny-storage",
       partialize: (state) => ({
         user: state.user,
         isAuthenticated: state.isAuthenticated,

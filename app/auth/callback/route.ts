@@ -6,6 +6,7 @@ import type { NextRequest } from "next/server";
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
+  const origin = requestUrl.origin;
 
   if (code) {
     const cookieStore = await cookies();
@@ -27,8 +28,17 @@ export async function GET(request: NextRequest) {
       },
     );
 
-    await supabase.auth.exchangeCodeForSession(code);
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (error) {
+      console.error("Auth callback error:", error);
+      return NextResponse.redirect(`${origin}?error=auth_failed`);
+    }
+
+    if (data.session) {
+      return NextResponse.redirect(origin);
+    }
   }
 
-  return NextResponse.redirect(requestUrl.origin);
+  return NextResponse.redirect(origin);
 }
