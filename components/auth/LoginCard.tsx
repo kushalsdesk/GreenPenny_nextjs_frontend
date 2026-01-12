@@ -1,19 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import type React from "react";
 import { useState, useEffect } from "react";
 import { useAuthStore } from "@/stores/authStore";
+import FloatingCard from "../landing/FloatingCard";
 
 export function LoginCard() {
-  // Local form state (UI only)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSignupMode, setIsSignupMode] = useState(false);
   const [localLoading, setLocalLoading] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(false);
 
   // Auth store
   const {
@@ -24,41 +24,44 @@ export function LoginCard() {
     error,
     clearError,
     setShowLogin,
-    checkSession,
   } = useAuthStore();
 
-  // Clear error when switching between login/signup
   useEffect(() => {
     clearError();
+    setSignupSuccess(false);
   }, [isSignupMode, clearError]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLocalLoading(true);
     clearError();
+    setSignupSuccess(false);
 
     try {
       if (isSignupMode) {
         await signup(email, password, name);
-        await checkSession();
-        setIsSignupMode(false);
+        setSignupSuccess(true);
         setName("");
         setPassword("");
+        setEmail("");
+
+        setTimeout(() => {
+          setIsSignupMode(false);
+          setSignupSuccess(false);
+        }, 3000);
       } else {
         await login(email, password);
-        // If true, AppContainer will handle navigation to Dashboard
       }
     } catch (err) {
-      // Error is already set in store
       console.error("Auth error:", err);
     } finally {
       setLocalLoading(false);
     }
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
     clearError();
-    loginWithGoogle();
+    await loginWithGoogle();
   };
 
   const toggleMode = () => {
@@ -67,6 +70,7 @@ export function LoginCard() {
     setPassword("");
     setEmail("");
     clearError();
+    setSignupSuccess(false);
   };
 
   const handleBackToLanding = () => {
@@ -82,7 +86,6 @@ export function LoginCard() {
       <FloatingCard />
       <div className="w-full max-w-md animate-in fade-in duration-500">
         <div className="backdrop-blur-2xl bg-white/50 border border-white/60 rounded-3xl p-8 shadow-md drop-shadow-2xl shadow-primary">
-          {/* Back button */}
           <button
             onClick={handleBackToLanding}
             className="mb-4 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -121,7 +124,13 @@ export function LoginCard() {
             </p>
           </div>
 
-          {/* Error Display */}
+          {signupSuccess && (
+            <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-xl text-sm">
+              Account created successfully! Please check your email to confirm
+              your account.
+            </div>
+          )}
+
           {error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-xl text-sm">
               {error}
@@ -129,7 +138,6 @@ export function LoginCard() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name field - only in signup mode */}
             {isSignupMode && (
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
@@ -146,7 +154,6 @@ export function LoginCard() {
               </div>
             )}
 
-            {/* Email field */}
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">
                 Email Address
@@ -161,7 +168,6 @@ export function LoginCard() {
               />
             </div>
 
-            {/* Password field */}
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">
                 Password
@@ -174,7 +180,7 @@ export function LoginCard() {
                   placeholder="••••••••"
                   className="w-full px-4 py-3 backdrop-blur-md bg-white/40 border border-white/40 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-white/50 focus:border-white/60 transition-all"
                   required
-                  minLength={8}
+                  minLength={6}
                 />
                 <button
                   type="button"
@@ -210,7 +216,6 @@ export function LoginCard() {
               </div>
             </div>
 
-            {/* Submit button */}
             <button
               type="submit"
               disabled={isFormLoading}
@@ -239,7 +244,6 @@ export function LoginCard() {
               <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-gradient-to-b from-primary to-transparent rounded-br-xl opacity-1" />
             </button>
 
-            {/* Divider */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-white/40" />
@@ -251,7 +255,6 @@ export function LoginCard() {
               </div>
             </div>
 
-            {/* Google OAuth button */}
             <button
               type="button"
               onClick={handleGoogleLogin}
@@ -279,7 +282,6 @@ export function LoginCard() {
               Continue with Google
             </button>
 
-            {/* Toggle between login/signup */}
             <p className="text-center text-lg text-muted-foreground mt-4">
               {isSignupMode
                 ? "Already have an account?"
@@ -298,52 +300,3 @@ export function LoginCard() {
     </div>
   );
 }
-
-const FloatingCard = () => {
-  return (
-    <motion.div
-      className="absolute -right-1/12 top-12 md:top-20 md:-right-20 lg:right-0 lg:top-1/4 lg:translate-y-1/3 pointer-events-none z-0"
-      initial={{
-        x: 200,
-        opacity: 0,
-        rotate: 10,
-      }}
-      animate={{
-        x: 0,
-        opacity: 1,
-        rotate: -15,
-      }}
-      transition={{
-        duration: 1.5,
-        delay: 0.3,
-        type: "spring",
-        stiffness: 60,
-        damping: 15,
-      }}
-    >
-      <motion.div
-        animate={{
-          y: [0, -20, 0],
-          rotate: [15, 18, 15],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="relative w-48 sm:w-80 lg:w-[400px] xl:w-[500px]"
-      >
-        <Image
-          src="/assets/card_view.png"
-          alt="Debit Card"
-          width={1000}
-          height={630}
-          className="w-full h-auto drop-shadow-2xl"
-          priority
-          unoptimized
-          quality={100}
-        />
-      </motion.div>
-    </motion.div>
-  );
-};

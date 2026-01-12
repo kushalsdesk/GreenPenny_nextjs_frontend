@@ -26,17 +26,15 @@ export function LandingNavbar() {
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
         {/* Logo Section */}
         <div className="flex items-center gap-3">
-          <div className="glass-logo-container">
-            <Image
-              src="/assets/logo.png"
-              alt="GreenPenny Logo"
-              width={65}
-              height={65}
-              className="object-contain"
-              priority
-              quality={75}
-            />
-          </div>
+          <Image
+            src="/assets/logo.png"
+            alt="GreenPenny Logo"
+            width={65}
+            height={65}
+            className="glass-logo object-contain"
+            priority
+            quality={75}
+          />
         </div>
 
         {/* Desktop Navigation */}
@@ -120,7 +118,7 @@ export function LandingNavbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="mobile-menu absolute top-full left-0 right-0 z-40 md:hidden rounded-b-3xl">
+          <div className="mobile-menu backdrop-blur-md bg-white/40 absolute top-full left-0 right-0 z-40 md:hidden rounded-b-3xl">
             <div className="flex flex-col gap-2 p-4">
               {isAuthenticated ? (
                 // Show "Go to Dashboard" in mobile menu when logged in
@@ -145,10 +143,9 @@ export function LandingNavbar() {
                   </span>
                 </button>
               ) : (
-                // Show "Sign In" in mobile menu when not logged in
                 <button
                   onClick={handleSignInClick}
-                  className="menu-item w-full"
+                  className="menu-item text-primary w-full"
                 >
                   <span className="menu-label-mobile">
                     <Image
@@ -165,7 +162,6 @@ export function LandingNavbar() {
                 </button>
               )}
 
-              {/* News Button (kept from original) */}
               <button className="menu-item w-full">
                 <span className="menu-label-mobile">
                   <Image

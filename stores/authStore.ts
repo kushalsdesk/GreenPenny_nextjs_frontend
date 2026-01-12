@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-const BACKEND_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
+import { createClient } from "@/lib/supabase/client";
 
 interface User {
   id: string;
@@ -22,22 +20,21 @@ interface AuthState {
 
   signup: (email: string, password: string, name: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: () => void;
+  loginWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
   checkSession: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
-      //Initial state
+    (set) => ({
+      // Initial state
       user: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
       showLogin: false,
 
-      // UI actions
       setShowLogin: (show: boolean) => {
         set({ showLogin: show, error: null });
       },
@@ -45,24 +42,36 @@ export const useAuthStore = create<AuthState>()(
         set({ error: null });
       },
 
-      //Signup
       signup: async (email: string, password: string, name: string) => {
         set({ isLoading: true, error: null });
 
         try {
-          const response = await fetch(`${BACKEND_URL}/api/v1/signup`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify({ email, password, name }),
+          const supabase = createClient();
+
+          const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+              data: {
+                name: name,
+              },
+            },
           });
 
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.error || "SignUp failed");
+          if (error) {
+            throw new Error(error.message);
           }
-          set({ isLoading: false, error: null });
+
+          if (data.user) {
+            if (data.user.identities && data.user.identities.length === 0) {
+              throw new Error("Email already registered. Please sign in.");
+            }
+
+            set({
+              isLoading: false,
+              error: null,
+            });
+          }
         } catch (error: unknown) {
           const message =
             error instanceof Error ? error.message : "Signup Failed";
@@ -71,25 +80,37 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      //Login
       login: async (email: string, password: string) => {
         set({ isLoading: true, error: null });
 
         try {
-          const response = await fetch(`${BACKEND_URL}/api/v1/login`, {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify({ email, password }),
+          const supabase = createClient();
+
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
           });
 
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.error || "Login failed");
+          if (error) {
+            throw new Error(error.message);
           }
 
-          await get().checkSession();
+          if (data.user) {
+            const user: User = {
+              id: data.user.id,
+              email: data.user.email!,
+              name:
+                data.user.user_metadata?.name || data.user.email!.split("@")[0],
+            };
+
+            set({
+              user,
+              isAuthenticated: true,
+              isLoading: false,
+              error: null,
+              showLogin: false,
+            });
+          }
         } catch (error: unknown) {
           const message =
             error instanceof Error ? error.message : "Login Failed";
@@ -98,34 +119,70 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      //Google Auth Login
-      loginWithGoogle: () => {
-        set({ error: null });
-        window.location.href = `${BACKEND_URL}/api/v1/oauth`;
-      },
-
-      //check current session
-      checkSession: async () => {
+      loginWithGoogle: async () => {
         set({ isLoading: true, error: null });
+
         try {
-          const response = await fetch(`${BACKEND_URL}/api/v1/user`, {
-            method: "GET",
-            credentials: "include",
+          const supabase = createClient();
+
+          const { error } = await supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+              redirectTo: `${window.location.origin}/auth/callback`,
+            },
           });
 
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.error || "Session checking failed");
+          if (error) {
+            throw new Error(error.message);
           }
 
-          set({
-            user: data.user,
-            isAuthenticated: true,
-            isLoading: false,
-            error: null,
-            showLogin: false,
-          });
+          // The redirect will happen automatically
+          // No need to set loading to false as page will redirect
+        } catch (error: unknown) {
+          const message =
+            error instanceof Error ? error.message : "Google login failed";
+          set({ isLoading: false, error: message });
+        }
+      },
+
+      checkSession: async () => {
+        set({ isLoading: true, error: null });
+
+        try {
+          const supabase = createClient();
+
+          const {
+            data: { session },
+            error,
+          } = await supabase.auth.getSession();
+
+          if (error) {
+            throw new Error(error.message);
+          }
+
+          if (session?.user) {
+            const user: User = {
+              id: session.user.id,
+              email: session.user.email!,
+              name:
+                session.user.user_metadata?.name ||
+                session.user.email!.split("@")[0],
+            };
+
+            set({
+              user,
+              isAuthenticated: true,
+              isLoading: false,
+              error: null,
+            });
+          } else {
+            set({
+              user: null,
+              isAuthenticated: false,
+              isLoading: false,
+              error: null,
+            });
+          }
         } catch (error: unknown) {
           set({
             user: null,
@@ -136,17 +193,16 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      //logout
       logout: async () => {
         set({ isLoading: true, error: null });
-        try {
-          const response = await fetch(`${BACKEND_URL}/api/v1/logout`, {
-            method: "GET",
-            credentials: "include",
-          });
 
-          if (!response.ok) {
-            throw new Error("Logout failed");
+        try {
+          const supabase = createClient();
+
+          const { error } = await supabase.auth.signOut();
+
+          if (error) {
+            throw new Error(error.message);
           }
 
           set({

@@ -158,19 +158,12 @@
     border-radius: 0.5rem;
 }
 
-.glass-logo-container {
+.glass-logo {
     position: relative;
-    width: fit-content;
-    height: fit-content;
     backdrop-filter: blur(12px);
-    background: linear-gradient(
-        to bottom right,
-        oklch(from var(--primary) l c h / 0.2),
-        oklch(from var(--primary) l c h / 0.1)
-    );
-    border: 1px solid oklch(from var(--primary) l c h / 0.3);
+    /*border: 1px solid oklch(from var(--primary) l c h / 0.3);
     box-shadow: 0 4px 16px -1px oklch(0.25 0.08 142 / 0.5);
-    border-radius: 0.5rem;
+    border-radius: 0.5rem;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -312,8 +305,8 @@
 }
 
 .logo-spinner {
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
     animation: spin-counterclockwise 5s linear infinite;
 }
 
@@ -375,12 +368,6 @@
 }
 
 .mobile-menu {
-    backdrop-filter: blur(42px);
-    background: linear-gradient(
-        to bottom right,
-        oklch(from var(--primary) l c h / 0.3),
-        oklch(0.25 0.08 142 / 0.5)
-    );
     border: 1px solid rgb(255 255 255 / 0.5);
     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
 }
