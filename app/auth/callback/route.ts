@@ -32,13 +32,17 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error("Auth callback error:", error);
-      return NextResponse.redirect(`${origin}?error=auth_failed`);
+      // Redirect with error parameter
+      return NextResponse.redirect(`${origin}?auth=failed&error=${encodeURIComponent(error.message)}`);
     }
 
     if (data.session) {
-      return NextResponse.redirect(origin);
+      // Successful authentication - redirect to home
+      // The AppContainer will check session and show dashboard
+      return NextResponse.redirect(`${origin}?auth=success`);
     }
   }
 
+  // No code parameter, just redirect to home
   return NextResponse.redirect(origin);
 }

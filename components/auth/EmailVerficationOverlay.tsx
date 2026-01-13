@@ -1,14 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { useToast } from "./ToastProvider";
 
 interface EmailVerificationOverlayProps {
   email: string;
   onClose: () => void;
 }
+
 export const EmailVerificationOverlay = ({
   email,
   onClose,
 }: EmailVerificationOverlayProps) => {
   const [isClosing, setIsClosing] = useState(false);
+  const [resendTimer, setResendTimer] = useState(60); // 60 seconds cooldown
+  const [canResend, setCanResend] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const { showToast } = useToast();
+
+  // Countdown timer for resend
+  useEffect(() => {
+    if (resendTimer > 0) {
+      const timer = setTimeout(() => {
+        setResendTimer(resendTimer - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setCanResend(true);
+    }
+  }, [resendTimer]);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -17,26 +36,80 @@ export const EmailVerificationOverlay = ({
     }, 300);
   };
 
-  const openGmail = () => {
-    window.open("https://mail.google.com", "_blank");
+  const openEmail = () => {
+    // Detect email provider from email address
+    const domain = email.split("@")[1]?.toLowerCase();
+
+    let emailUrl = "https://mail.google.com"; // Default to Gmail
+
+    if (domain?.includes("outlook") || domain?.includes("hotmail") || domain?.includes("live")) {
+      emailUrl = "https://outlook.live.com";
+    } else if (domain?.includes("yahoo")) {
+      emailUrl = "https://mail.yahoo.com";
+    } else if (domain?.includes("icloud") || domain?.includes("me.com")) {
+      emailUrl = "https://www.icloud.com/mail";
+    }
+
+    window.open(emailUrl, "_blank");
   };
+
+  const handleResend = async () => {
+    if (!canResend || isResending) return;
+
+    setIsResending(true);
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.resend({
+        type: "signup",
+        email: email,
+        options: {
+          emailRedirectTo: process.env.NEXT_PUBLIC_SITE_URL
+            ? `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
+            : `${window.location.origin}/auth/callback`,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      showToast(
+        "Verification Email Resent",
+        "Please check your inbox again.",
+        "success"
+      );
+
+      // Reset timer
+      setResendTimer(60);
+      setCanResend(false);
+    } catch (error: any) {
+      showToast(
+        "Failed to Resend Email",
+        error.message || "Please try again later.",
+        "error"
+      );
+    } finally {
+      setIsResending(false);
+    }
+  };
+
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
-        isClosing ? "opacity-0" : "opacity-100"
-      }`}
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${isClosing ? "opacity-0" : "opacity-100"
+        }`}
       onClick={handleClose}
     >
       <div
-        className={`relative w-full max-w-md backdrop-blur-2xl bg-white/50 border border-white/60 rounded-3xl p-8 shadow-2xl transition-all duration-300 ${
-          isClosing ? "scale-95 opacity-0" : "scale-100 opacity-100"
-        }`}
+        className={`relative w-full max-w-md backdrop-blur-2xl bg-white/50 border border-white/60 rounded-3xl p-8 shadow-2xl transition-all duration-300 ${isClosing ? "scale-95 opacity-0" : "scale-100 opacity-100"
+          }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-white/40"
+          aria-label="Close"
         >
           <svg
             width="20"
@@ -74,9 +147,9 @@ export const EmailVerificationOverlay = ({
             Check Your Email
           </h2>
           <p className="text-muted-foreground">
-            We &apos ve sent a verification link to
+            We've sent a verification link to
           </p>
-          <p className="font-medium text-foreground bg-white/40 backdrop-blur-md border border-white/40 rounded-xl px-4 py-2">
+          <p className="font-medium text-foreground bg-white/40 backdrop-blur-md border border-white/40 rounded-xl px-4 py-2 break-all">
             {email}
           </p>
           <p className="text-sm text-muted-foreground">
@@ -88,7 +161,7 @@ export const EmailVerificationOverlay = ({
         {/* Actions */}
         <div className="mt-8 space-y-3">
           <button
-            onClick={openGmail}
+            onClick={openEmail}
             className="w-full relative overflow-hidden backdrop-blur-md bg-gradient-to-br from-white/50 to-primary/5 border border-primary/30 rounded-xl py-3 px-6 font-medium text-primary hover:from-white/60 hover:to-primary/10 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300"
           >
             <span className="flex items-center justify-center gap-2">
@@ -104,22 +177,35 @@ export const EmailVerificationOverlay = ({
                 <polyline points="15 3 21 3 21 9" />
                 <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
-              Open Gmail
+              Open Email Inbox
             </span>
+          </button>
+
+          {/* Resend Button */}
+          <button
+            onClick={handleResend}
+            disabled={!canResend || isResending}
+            className="w-full text-sm font-medium text-primary hover:text-primary/80 transition-colors disabled:text-muted-foreground disabled:cursor-not-allowed"
+          >
+            {isResending
+              ? "Resending..."
+              : canResend
+                ? "Resend Verification Email"
+                : `Resend available in ${resendTimer}s`}
           </button>
 
           <button
             onClick={handleClose}
             className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            I&aposll check later
+            I'll check later
           </button>
         </div>
 
         {/* Info Note */}
         <div className="mt-6 p-3 bg-white/30 backdrop-blur-md border border-white/40 rounded-xl">
           <p className="text-xs text-muted-foreground text-center">
-            <strong>Tip:</strong> Check your spam folder if you don&apost see
+            <strong>Tip:</strong> Check your spam folder if you don't see
             the email within a few minutes.
           </p>
         </div>

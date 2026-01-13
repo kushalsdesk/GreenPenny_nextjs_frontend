@@ -14,9 +14,13 @@ interface AuthState {
   isLoading: boolean;
   error: string | null;
   showLogin: boolean;
+  isVerifying: boolean;
+  verificationEmail: string | null;
 
   setShowLogin: (show: boolean) => void;
   clearError: () => void;
+  setVerifying: (email: string) => void;
+  clearVerifying: () => void;
 
   signup: (email: string, password: string, name: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
@@ -34,12 +38,20 @@ export const useAuthStore = create<AuthState>()(
       isLoading: false,
       error: null,
       showLogin: false,
+      isVerifying: false,
+      verificationEmail: null,
 
       setShowLogin: (show: boolean) => {
         set({ showLogin: show, error: null });
       },
       clearError: () => {
         set({ error: null });
+      },
+      setVerifying: (email: string) => {
+        set({ isVerifying: true, verificationEmail: email });
+      },
+      clearVerifying: () => {
+        set({ isVerifying: false, verificationEmail: null });
       },
 
       signup: async (email: string, password: string, name: string) => {
@@ -55,6 +67,9 @@ export const useAuthStore = create<AuthState>()(
               data: {
                 name: name,
               },
+              emailRedirectTo: process.env.NEXT_PUBLIC_SITE_URL
+                ? `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
+                : `${window.location.origin}/auth/callback`,
             },
           });
 
@@ -70,10 +85,12 @@ export const useAuthStore = create<AuthState>()(
               throw new Error(errorMsg);
             }
 
-            // Signup successful
+            // Signup successful - set verification state
             set({
               isLoading: false,
               error: null,
+              isVerifying: true,
+              verificationEmail: email,
             });
           }
         } catch (error: unknown) {
@@ -130,10 +147,15 @@ export const useAuthStore = create<AuthState>()(
         try {
           const supabase = createClient();
 
+          // Use environment variable for production, fallback to window.location for development
+          const redirectTo = process.env.NEXT_PUBLIC_SITE_URL
+            ? `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
+            : `${window.location.origin}/auth/callback`;
+
           const { error } = await supabase.auth.signInWithOAuth({
             provider: "google",
             options: {
-              redirectTo: `${window.location.origin}/auth/callback`,
+              redirectTo,
             },
           });
 

@@ -134,10 +134,18 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         {toasts.map((toast) => (
           <ToastPrimitive.Root
             key={toast.id}
-            className={`fixed z-[100] backdrop-blur-md border rounded-xl p-4 shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full
-              bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 sm:bottom-4 w-[calc(100%-2rem)] sm:w-auto sm:max-w-md ${getToastStyles(
-                toast.type,
-              )}`}
+            className={`fixed z-[100] backdrop-blur-md border rounded-xl p-4 shadow-lg
+              data-[state=open]:animate-in data-[state=closed]:animate-out 
+              data-[swipe=end]:animate-out 
+              data-[state=closed]:fade-out-80 
+              data-[state=closed]:slide-out-to-right-full 
+              data-[state=open]:slide-in-from-top-full 
+              data-[state=open]:sm:slide-in-from-bottom-full
+              top-4 left-1/2 -translate-x-1/2 
+              sm:left-auto sm:right-4 sm:translate-x-0 sm:top-auto sm:bottom-4 
+              w-[calc(100%-2rem)] sm:w-auto sm:max-w-md ${getToastStyles(
+              toast.type,
+            )}`}
             onOpenChange={(open) => {
               if (!open) removeToast(toast.id);
             }}
