@@ -41,7 +41,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
         <div className="p-6 flex flex-col h-full">
           {/* Logo Section */}
           <div className="flex items-center gap-3 mb-8">
-            <div className="relative w-12 h-12 backdrop-blur-md bg-linear-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="relative w-12 h-12  rounded-lg flex items-center justify-center ">
               <Image
                 src="/assets/logo.png"
                 alt="GreenPenny Logo"
@@ -106,20 +106,16 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-destructive hover:bg-red-50/30 transition-all duration-300 font-medium border border-red-200/30 hover:border-red-200/50 hover:shadow-sm"
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>
+            <div className="relative w-10 h-10  rounded-lg flex justify-center items-center shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <Image
+                src={"/assets/logout.png"}
+                alt={"logout"}
+                width={30}
+                height={30}
+                className="object-fit"
+                quality={70}
+              />
+            </div>
             <span className="text-sm lg:text-base">Logout</span>
           </button>
         </div>
@@ -135,7 +131,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
           {/* Logo Section with Close Button */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex justify-center items-center gap-3">
-              <div className="relative w-12 h-12 backdrop-blur-md bg-linear-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg flex items-center justify-center overflow-hidden">
+              <div className="relative w-12 h-12  rounded-lg flex items-center justify-center ">
                 <Image
                   src="/assets/logo.png"
                   alt="GreenPenny Logo"

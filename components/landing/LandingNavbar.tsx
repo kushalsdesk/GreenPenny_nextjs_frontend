@@ -158,7 +158,7 @@ export function LandingNavbar() {
                 >
                   <span className="menu-label-mobile">
                     <Image
-                      src="/assets/signin.png"
+                      src="/assets/signup.png"
                       alt="Get In"
                       width={50}
                       height={50}
@@ -174,7 +174,7 @@ export function LandingNavbar() {
               <button className="menu-item w-full">
                 <span className="menu-label-mobile">
                   <Image
-                    src="/assets/sidebar.png"
+                    src="/assets/news.png"
                     alt="News"
                     width={50}
                     height={50}

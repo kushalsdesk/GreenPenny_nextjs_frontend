@@ -1,8 +1,8 @@
 "use client";
 
-import { CurrencyFloats } from "../CurrencyFloats";
+import CurrencyFloats from "../CurrencyFloats";
 import FloatingCard from "../FloatingCard";
-import { FeatureCarousel } from "../FeatureCarousel";
+import FeatureCarousel from "../FeatureCarousel";
 
 export function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   return (

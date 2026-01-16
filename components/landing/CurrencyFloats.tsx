@@ -12,7 +12,7 @@ interface Currency {
   corner: CornerType;
 }
 
-export function CurrencyFloats() {
+const CurrencyFloats = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -103,4 +103,6 @@ export function CurrencyFloats() {
       })}
     </div>
   );
-}
+};
+
+export default CurrencyFloats;
