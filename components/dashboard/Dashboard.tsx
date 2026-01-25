@@ -7,6 +7,7 @@ import { SpendingGraph } from "./SpendingGraph";
 import { TransactionList } from "./TransactionList";
 import { TransactionsSection } from "./TransactionsSection";
 import { Sidebar } from "./Sidebar";
+import { Insight } from "./Insights";
 
 export function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -34,7 +35,6 @@ export function Dashboard() {
       <main className="flex-1 flex flex-col min-h-screen w-full md:ml-64">
         <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
 
-        {/* Scrollable content area */}
         <div className="flex-1 overflow-y-auto">
           <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
             {/* Conditional Section Rendering */}
@@ -47,13 +47,14 @@ export function Dashboard() {
             )}
 
             {currentSection === "transactions" && <TransactionsSection />}
+            {currentSection === "insights" && <Insight />}
 
-            {currentSection === "insights" && (
-              <div className="glass-card-glow p-12 text-center">
-                <p className="text-xl font-bold text-foreground">Insights Section</p>
-                <p className="text-sm text-muted-foreground mt-2">Coming soon...</p>
-              </div>
-            )}
+            {/* {currentSection === "insights" && ( */}
+            {/*   <div className="glass-card-glow p-12 text-center"> */}
+            {/*     <p className="text-xl font-bold text-foreground">Insights Section</p> */}
+            {/*     <p className="text-sm text-muted-foreground mt-2">Coming soon...</p> */}
+            {/*   </div> */}
+            {/* )} */}
 
             {currentSection === "settings" && (
               <div className="glass-card-glow p-12 text-center">
