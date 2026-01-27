@@ -8,6 +8,7 @@ import { TransactionList } from "./TransactionList";
 import { TransactionsSection } from "./TransactionsSection";
 import { Sidebar } from "./Sidebar";
 import { Insight } from "./Insights";
+import Settings from "./SettingsSection";
 
 export function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -48,6 +49,7 @@ export function Dashboard() {
 
             {currentSection === "transactions" && <TransactionsSection />}
             {currentSection === "insights" && <Insight />}
+            {currentSection === "settings" && <Settings />}
 
             {/* {currentSection === "insights" && ( */}
             {/*   <div className="glass-card-glow p-12 text-center"> */}
@@ -56,12 +58,12 @@ export function Dashboard() {
             {/*   </div> */}
             {/* )} */}
 
-            {currentSection === "settings" && (
+            {/*{currentSection === "settings" && (
               <div className="glass-card-glow p-12 text-center">
                 <p className="text-xl font-bold text-foreground">Settings Section</p>
                 <p className="text-sm text-muted-foreground mt-2">Coming soon...</p>
               </div>
-            )}
+            )}*/}
           </div>
         </div>
       </main>

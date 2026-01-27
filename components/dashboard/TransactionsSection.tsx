@@ -426,7 +426,6 @@ export function TransactionsSection() {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
 
-  // Filter logic
   const filteredTransactions = useMemo(() => {
     return MOCK_TRANSACTIONS.filter((transaction) => {
       if (
@@ -440,7 +439,7 @@ export function TransactionsSection() {
         const now = new Date();
         const transactionDate = transaction.date;
         const daysDifference = Math.floor(
-          (now.getTime() - transactionDate.getTime()) / (1000 * 3600 * 24)
+          (now.getTime() - transactionDate.getTime()) / (1000 * 3600 * 24),
         );
 
         switch (filters.dateRange) {
@@ -460,7 +459,6 @@ export function TransactionsSection() {
         }
       }
 
-      // Transaction type filter
       if (
         filters.transactionType !== "all" &&
         transaction.type !== filters.transactionType
@@ -468,12 +466,13 @@ export function TransactionsSection() {
         return false;
       }
 
-      // Category filter
-      if (filters.category !== "all" && transaction.category !== filters.category) {
+      if (
+        filters.category !== "all" &&
+        transaction.category !== filters.category
+      ) {
         return false;
       }
 
-      // Search filter
       if (
         searchQuery &&
         !transaction.description
@@ -487,14 +486,10 @@ export function TransactionsSection() {
     });
   }, [filters, searchQuery]);
 
-  // Pagination
   const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
   const paginatedTransactions = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredTransactions.slice(
-      startIndex,
-      startIndex + ITEMS_PER_PAGE
-    );
+    return filteredTransactions.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [filteredTransactions, currentPage]);
 
   const handleFilterChange = (key: keyof FilterState, value: string) => {
@@ -535,7 +530,6 @@ export function TransactionsSection() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div>
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-2xl font-bold text-foreground">Transactions</h2>
@@ -548,10 +542,8 @@ export function TransactionsSection() {
         </p>
       </div>
 
-      {/* Filters Bar */}
       <div className="glass-card-glow p-4 sm:p-6 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-          {/* Account Filter */}
           <div className="flex flex-col">
             <label className="text-xs font-medium text-muted-foreground mb-2">
               Account
@@ -567,7 +559,6 @@ export function TransactionsSection() {
             </select>
           </div>
 
-          {/* Date Range Filter */}
           <div className="flex flex-col">
             <label className="text-xs font-medium text-muted-foreground mb-2">
               Date Range
@@ -585,14 +576,15 @@ export function TransactionsSection() {
             </select>
           </div>
 
-          {/* Transaction Type Filter */}
           <div className="flex flex-col">
             <label className="text-xs font-medium text-muted-foreground mb-2">
               Type
             </label>
             <select
               value={filters.transactionType}
-              onChange={(e) => handleFilterChange("transactionType", e.target.value)}
+              onChange={(e) =>
+                handleFilterChange("transactionType", e.target.value)
+              }
               className="px-3 py-2 rounded-xl bg-white/20 border border-white/40 backdrop-blur-md text-foreground text-sm focus:outline-none focus:border-white/60 focus:bg-white/30 transition-all"
             >
               <option value="all">All Types</option>
@@ -601,7 +593,6 @@ export function TransactionsSection() {
             </select>
           </div>
 
-          {/* Category Filter */}
           <div className="flex flex-col">
             <label className="text-xs font-medium text-muted-foreground mb-2">
               Category
@@ -623,7 +614,6 @@ export function TransactionsSection() {
             </select>
           </div>
 
-          {/* Search Bar */}
           <div className="flex flex-col">
             <label className="text-xs font-medium text-muted-foreground mb-2">
               Search
@@ -652,19 +642,16 @@ export function TransactionsSection() {
           </div>
         </div>
 
-        {/* Clear Filters Button */}
-        {(Object.values(filters).some((v) => v !== "all") ||
-          searchQuery) && (
-            <button
-              onClick={handleClearFilters}
-              className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
-            >
-              Clear Filters
-            </button>
-          )}
+        {(Object.values(filters).some((v) => v !== "all") || searchQuery) && (
+          <button
+            onClick={handleClearFilters}
+            className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+          >
+            Clear Filters
+          </button>
+        )}
       </div>
 
-      {/* Desktop Table View */}
       <div className="hidden sm:block">
         {paginatedTransactions.length > 0 ? (
           <div className="glass-card-glow overflow-hidden">
@@ -783,14 +770,10 @@ export function TransactionsSection() {
         )}
       </div>
 
-      {/* Mobile Card View */}
       <div className="sm:hidden space-y-3">
         {paginatedTransactions.length > 0 ? (
           paginatedTransactions.map((transaction) => (
-            <div
-              key={transaction.id}
-              className="glass-card-glow p-4 space-y-3"
-            >
+            <div key={transaction.id} className="glass-card-glow p-4 space-y-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3 flex-1">
                   <div className="p-2 rounded-lg bg-white/30 border border-white/40 shrink-0">
@@ -807,10 +790,11 @@ export function TransactionsSection() {
                 </div>
                 <div className="text-right shrink-0">
                   <p
-                    className={`text-base font-bold ${transaction.type === "income"
-                      ? "text-primary"
-                      : "text-destructive"
-                      }`}
+                    className={`text-base font-bold ${
+                      transaction.type === "income"
+                        ? "text-primary"
+                        : "text-destructive"
+                    }`}
                   >
                     {transaction.type === "income" ? "+" : "-"}$
                     {transaction.amount.toFixed(2)}
@@ -868,12 +852,14 @@ export function TransactionsSection() {
         )}
       </div>
 
-      {/* Pagination */}
       {paginatedTransactions.length > 0 && (
         <div className="glass-card-glow p-4 flex items-center justify-between flex-wrap gap-4">
           <p className="text-sm text-muted-foreground">
             Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1}-
-            {Math.min(currentPage * ITEMS_PER_PAGE, filteredTransactions.length)}{" "}
+            {Math.min(
+              currentPage * ITEMS_PER_PAGE,
+              filteredTransactions.length,
+            )}{" "}
             of {filteredTransactions.length} transactions
           </p>
 
@@ -887,18 +873,21 @@ export function TransactionsSection() {
             </button>
 
             <div className="flex items-center gap-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${currentPage === page
-                    ? "bg-white/40 border border-white/60 text-foreground"
-                    : "bg-white/20 hover:bg-white/30 border border-white/40 text-muted-foreground"
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      currentPage === page
+                        ? "bg-white/40 border border-white/60 text-foreground"
+                        : "bg-white/20 hover:bg-white/30 border border-white/40 text-muted-foreground"
                     }`}
-                >
-                  {page}
-                </button>
-              ))}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
             </div>
 
             <button
