@@ -414,7 +414,7 @@ const getCategoryIcon = (category: string) => {
   }
 };
 
-export function TransactionsSection() {
+const Transactions = () => {
   const [filters, setFilters] = useState<FilterState>({
     account: "all",
     dateRange: "all",
@@ -425,7 +425,6 @@ export function TransactionsSection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
-
   const filteredTransactions = useMemo(() => {
     return MOCK_TRANSACTIONS.filter((transaction) => {
       if (
@@ -790,11 +789,10 @@ export function TransactionsSection() {
                 </div>
                 <div className="text-right shrink-0">
                   <p
-                    className={`text-base font-bold ${
-                      transaction.type === "income"
-                        ? "text-primary"
-                        : "text-destructive"
-                    }`}
+                    className={`text-base font-bold ${transaction.type === "income"
+                      ? "text-primary"
+                      : "text-destructive"
+                      }`}
                   >
                     {transaction.type === "income" ? "+" : "-"}$
                     {transaction.amount.toFixed(2)}
@@ -878,11 +876,10 @@ export function TransactionsSection() {
                   <button
                     key={page}
                     onClick={() => setCurrentPage(page)}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      currentPage === page
-                        ? "bg-white/40 border border-white/60 text-foreground"
-                        : "bg-white/20 hover:bg-white/30 border border-white/40 text-muted-foreground"
-                    }`}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${currentPage === page
+                      ? "bg-white/40 border border-white/60 text-foreground"
+                      : "bg-white/20 hover:bg-white/30 border border-white/40 text-muted-foreground"
+                      }`}
                   >
                     {page}
                   </button>
@@ -905,3 +902,5 @@ export function TransactionsSection() {
     </div>
   );
 }
+
+export default Transactions;

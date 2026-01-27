@@ -6,7 +6,7 @@ interface NavbarProps {
   onMenuClick: () => void;
 }
 
-export function Navbar({ onMenuClick }: NavbarProps) {
+const Navbar = ({ onMenuClick }: NavbarProps) => {
   return (
     <nav className="sticky top-0  mx-4 sm:mx-6 mt-4 rounded-xl sm:rounded-2xl backdrop-blur-lg bg-linear-to-br from-primary/20 to-primary/10 border-white/50 shadow-xl shadow-black/5 p-3 sm:p-4 flex items-center justify-between z-20">
       {/* Left Section */}
@@ -79,3 +79,4 @@ export function Navbar({ onMenuClick }: NavbarProps) {
     </nav>
   );
 }
+export default Navbar

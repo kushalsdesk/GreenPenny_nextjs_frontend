@@ -30,11 +30,11 @@ const BANK_OPTIONS = [
 
 const ACCOUNT_TYPES = ["Checking", "Savings", "Investment"];
 
-export function AddAccountModal({
+const AddAccountModal = ({
   isOpen,
   onClose,
   onSubmit,
-}: AddAccountModalProps) {
+}: AddAccountModalProps) => {
   const { showToast } = useToast();
   const [formData, setFormData] = useState({
     bankName: "",
@@ -354,3 +354,4 @@ export function AddAccountModal({
     </>
   );
 }
+export default AddAccountModal

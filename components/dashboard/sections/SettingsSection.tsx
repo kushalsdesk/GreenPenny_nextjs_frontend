@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -597,7 +598,7 @@ const Settings = () => {
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                       {activity.device.includes("iPhone") ||
-                      activity.device.includes("Safari") ? (
+                        activity.device.includes("Safari") ? (
                         <svg
                           width="20"
                           height="20"
@@ -710,19 +711,17 @@ const Settings = () => {
                   </div>
                   <button
                     onClick={() => handleToggle(item.key as keyof Preferences)}
-                    className={`relative w-14 h-7 rounded-full transition-all duration-300 flex-shrink-0 ${
-                      preferences[item.key as keyof Preferences]
-                        ? "bg-primary shadow-md shadow-primary/30"
-                        : "bg-gray-300"
-                    }`}
+                    className={`relative w-14 h-7 rounded-full transition-all duration-300 flex-shrink-0 ${preferences[item.key as keyof Preferences]
+                      ? "bg-primary shadow-md shadow-primary/30"
+                      : "bg-gray-300"
+                      }`}
                     aria-label={`Toggle ${item.label}`}
                   >
                     <div
-                      className={`absolute top-0.5 w-6 h-6 bg-white rounded-full shadow-lg transition-transform duration-300 ${
-                        preferences[item.key as keyof Preferences]
-                          ? "translate-x-7"
-                          : "translate-x-0.5"
-                      }`}
+                      className={`absolute top-0.5 w-6 h-6 bg-white rounded-full shadow-lg transition-transform duration-300 ${preferences[item.key as keyof Preferences]
+                        ? "translate-x-7"
+                        : "translate-x-0.5"
+                        }`}
                     />
                   </button>
                 </div>
@@ -802,11 +801,10 @@ const Settings = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <button
                 onClick={() => handlePreferenceChange("theme", "light")}
-                className={`relative p-5 rounded-2xl border-2 transition-all duration-300 group ${
-                  preferences.theme === "light"
-                    ? "border-primary bg-white/60 shadow-lg shadow-primary/20"
-                    : "border-white/50 bg-white/30 hover:bg-white/40 hover:border-white/70"
-                }`}
+                className={`relative p-5 rounded-2xl border-2 transition-all duration-300 group ${preferences.theme === "light"
+                  ? "border-primary bg-white/60 shadow-lg shadow-primary/20"
+                  : "border-white/50 bg-white/30 hover:bg-white/40 hover:border-white/70"
+                  }`}
               >
                 <div className="w-full aspect-video rounded-xl overflow-hidden mb-4 border border-gray-200 shadow-sm">
                   <div className="w-full h-full bg-gradient-to-br from-gray-50 via-white to-gray-100 p-3 space-y-2">

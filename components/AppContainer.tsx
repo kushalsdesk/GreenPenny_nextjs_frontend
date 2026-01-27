@@ -2,7 +2,7 @@
 
 import { useAuthStore } from "@/stores/authStore";
 import { useEffect, useState } from "react";
-import { Dashboard } from "./dashboard/Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import { LoginCard } from "./auth/LoginCard";
 import { LandingPage } from "./landing/LandingPage";
 import { EmailVerificationOverlay } from "./auth/EmailVerficationOverlay";

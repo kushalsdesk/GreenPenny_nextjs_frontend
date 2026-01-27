@@ -23,12 +23,12 @@ const menuItems: MenuItem[] = [
   { icon: "settings", label: "Settings", id: "settings" },
 ];
 
-export function Sidebar({
+const Sidebar = ({
   isOpen,
   onToggle,
   currentSection,
   onSectionChange,
-}: SidebarProps) {
+}: SidebarProps) => {
   const { logout } = useAuthStore();
 
   const handleLogout = async (): Promise<void> => {
@@ -66,11 +66,10 @@ export function Sidebar({
               <button
                 key={item.id}
                 onClick={() => onSectionChange(item.id)}
-                className={`group w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-                  currentSection === item.id
-                    ? "bg-white/30 border border-white/40 text-foreground font-medium shadow-sm"
-                    : "text-foreground hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-sm"
-                }`}
+                className={`group w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${currentSection === item.id
+                  ? "bg-white/30 border border-white/40 text-foreground font-medium shadow-sm"
+                  : "text-foreground hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-sm"
+                  }`}
               >
                 <div className="relative w-10 h-10 backdrop-blur-md bg-linear-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg flex justify-center items-center shrink-0 transition-transform duration-300 group-hover:scale-110">
                   <Image
@@ -125,9 +124,8 @@ export function Sidebar({
 
       {/* Mobile Sidebar */}
       <aside
-        className={`md:hidden fixed left-0 top-0 h-screen w-64 flex-col backdrop-blur-md bg-linear-to-br from-primary/20 to-white/50 border-r border-white/40 shadow-xl shadow-black/5 z-40 transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`md:hidden fixed left-0 top-0 h-screen w-64 flex-col backdrop-blur-md bg-linear-to-br from-primary/20 to-white/50 border-r border-white/40 shadow-xl shadow-black/5 z-40 transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="p-6 flex flex-col h-full">
           <div className="flex items-center justify-between mb-8">
@@ -154,11 +152,10 @@ export function Sidebar({
                   onSectionChange(item.id);
                   onToggle();
                 }}
-                className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-                  currentSection === item.id
-                    ? "bg-white/30 border border-white/40 text-foreground font-medium shadow-sm"
-                    : "text-foreground hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-sm"
-                }`}
+                className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${currentSection === item.id
+                  ? "bg-white/30 border border-white/40 text-foreground font-medium shadow-sm"
+                  : "text-foreground hover:bg-white/20 hover:border hover:border-white/30 hover:shadow-sm"
+                  }`}
               >
                 <div className="relative w-10 h-10 flex items-center backdrop-blur-md bg-linear-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
                   <Image
@@ -210,3 +207,4 @@ export function Sidebar({
     </>
   );
 }
+export default Sidebar

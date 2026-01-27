@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo } from "react";
@@ -385,7 +386,7 @@ function BudgetProgressBar({
   );
 }
 
-export function Insight() {
+const Insights = () => {
   const [selectedAccount, setSelectedAccount] = useState<
     "all" | "checking" | "savings"
   >("all");
@@ -729,3 +730,4 @@ export function Insight() {
     </div>
   );
 }
+export default Insights;

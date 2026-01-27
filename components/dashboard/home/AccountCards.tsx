@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { AddAccountModal } from "./AddAccountModal";
+import AddAccountModal from "../shared/AddAccountModal";
 
 interface AccountCardProps {
   id: number;
@@ -29,7 +29,7 @@ const chartData = [
   { month: "Jun", value: 20800 },
 ];
 
-export function AccountCards() {
+const AccountCards = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [accounts, setAccounts] = useState<AccountCardProps[]>([
     {
@@ -237,3 +237,4 @@ export function AccountCards() {
     </>
   );
 }
+export default AccountCards;

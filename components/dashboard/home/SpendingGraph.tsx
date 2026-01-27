@@ -19,7 +19,7 @@ const data = [
   { month: "Jun", spending: 2500, income: 4800 },
 ];
 
-export function SpendingGraph() {
+const SpendingGraph = () => {
   return (
     <div className="glass-card-glow p-4 sm:p-6">
       {/* Header */}
@@ -136,3 +136,4 @@ export function SpendingGraph() {
     </div>
   );
 }
+export default SpendingGraph

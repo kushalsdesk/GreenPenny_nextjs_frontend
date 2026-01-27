@@ -71,7 +71,7 @@ export function LandingNavbar() {
             >
               <span className="flex items-center gap-2">
                 <Image
-                  src="/assets/signin.png"
+                  src="/assets/signup.png"
                   alt="Sign In"
                   width={35}
                   height={35}

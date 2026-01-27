@@ -98,7 +98,7 @@ const getIcon = (iconType: string) => {
   }
 };
 
-export function TransactionList() {
+const TransactionList = () => {
   return (
     <div className="glass-card-glow p-4 sm:p-6">
       {/* Header */}
@@ -115,11 +115,10 @@ export function TransactionList() {
           >
             {/* Icon */}
             <div
-              className={`p-2 sm:p-3 rounded-lg border shrink-0 ${
-                transaction.type === "income"
-                  ? "bg-green-100/40 text-primary border-green-200/30"
-                  : "bg-red-100/40 text-destructive border-red-200/30"
-              }`}
+              className={`p-2 sm:p-3 rounded-lg border shrink-0 ${transaction.type === "income"
+                ? "bg-green-100/40 text-primary border-green-200/30"
+                : "bg-red-100/40 text-destructive border-red-200/30"
+                }`}
             >
               {getIcon(transaction.icon)}
             </div>
@@ -136,11 +135,10 @@ export function TransactionList() {
 
             {/* Amount */}
             <div
-              className={`text-right font-bold shrink-0 text-sm sm:text-base ${
-                transaction.type === "income"
-                  ? "text-primary"
-                  : "text-destructive"
-              }`}
+              className={`text-right font-bold shrink-0 text-sm sm:text-base ${transaction.type === "income"
+                ? "text-primary"
+                : "text-destructive"
+                }`}
             >
               {transaction.amount}
             </div>
@@ -150,3 +148,4 @@ export function TransactionList() {
     </div>
   );
 }
+export default TransactionList
